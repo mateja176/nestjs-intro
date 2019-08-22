@@ -1,4 +1,12 @@
-import { Controller, Get, Header, HttpCode, Post, Req } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Header,
+  HttpCode,
+  Param,
+  Post,
+  Req,
+} from '@nestjs/common';
 import { Request } from 'express';
 
 @Controller('cats')
@@ -16,5 +24,10 @@ export class CatsController {
   @Get('ab*cd')
   findWithWildcard() {
     return 'This route uses a wildcard';
+  }
+  @Get(':id')
+  findOne(@Param() params): string {
+    console.log(params.id);
+    return `This action returns a #${params.id} cat`;
   }
 }
