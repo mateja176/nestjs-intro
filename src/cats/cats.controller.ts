@@ -1,10 +1,12 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   Header,
   Param,
   Post,
+  Put,
   Req,
 } from '@nestjs/common';
 import { Request } from 'express';
@@ -13,6 +15,11 @@ import { CreateCatDto } from './create-cat.dto';
 
 @Controller('cats')
 export class CatsController {
+  @Post()
+  @Header('Cache-Control', 'none')
+  create(@Body() createCatDto: CreateCatDto) {
+    return 'This action adds a new cat';
+  }
   @Get()
   findAll(@Req() request: Request): string {
     return 'This action returns all cats';
@@ -21,11 +28,6 @@ export class CatsController {
   findOne(@Param() params): string {
     console.log(params.id);
     return `This action returns a #${params.id} cat`;
-  }
-  @Post()
-  @Header('Cache-Control', 'none')
-  create(@Body() createCatDto: CreateCatDto) {
-    return 'This action adds a new cat';
   }
   @Get('ab*cd')
   findWithWildcard() {
@@ -38,5 +40,13 @@ export class CatsController {
   @Get()
   findObservable(): Observable<any[]> {
     return of([]);
+  }
+  @Put(':id')
+  update(@Param('id') id: string, @Body() updateCatDto: Partial<CreateCatDto>) {
+    return `This action updates a #${id} cat`;
+  }
+  @Delete(':id')
+  remove(@Param('id') id: string) {
+    return `This action removes a #${id} cat`;
   }
 }
