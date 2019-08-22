@@ -13,4 +13,8 @@ export class CatsController {
   create() {
     return 'This action adds a new cat';
   }
+  @Get('ab*cd')
+  findWithWildcard() {
+    return 'This route uses a wildcard';
+  }
 }
