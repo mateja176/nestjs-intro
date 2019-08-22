@@ -8,6 +8,7 @@ import {
   Req,
 } from '@nestjs/common';
 import { Request } from 'express';
+import { Observable, of } from 'rxjs';
 
 @Controller('cats')
 export class CatsController {
@@ -29,5 +30,13 @@ export class CatsController {
   @Get('ab*cd')
   findWithWildcard() {
     return 'This route uses a wildcard';
+  }
+  @Get()
+  async findPromise(): Promise<any[]> {
+    return [];
+  }
+  @Get()
+  findObservable(): Observable<any[]> {
+    return of([]);
   }
 }
