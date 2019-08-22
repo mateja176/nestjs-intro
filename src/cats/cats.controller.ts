@@ -15,6 +15,11 @@ export class CatsController {
   findAll(@Req() request: Request): string {
     return 'This action returns all cats';
   }
+  @Get(':id')
+  findOne(@Param() params): string {
+    console.log(params.id);
+    return `This action returns a #${params.id} cat`;
+  }
   @Post()
   @Header('Cache-Control', 'none')
   @HttpCode(204)
@@ -24,10 +29,5 @@ export class CatsController {
   @Get('ab*cd')
   findWithWildcard() {
     return 'This route uses a wildcard';
-  }
-  @Get(':id')
-  findOne(@Param() params): string {
-    console.log(params.id);
-    return `This action returns a #${params.id} cat`;
   }
 }
