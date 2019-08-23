@@ -3,7 +3,6 @@ import {
   Controller,
   Delete,
   Get,
-  Header,
   Param,
   Post,
   Put,
@@ -11,18 +10,20 @@ import {
 } from '@nestjs/common';
 import { Request } from 'express';
 import { Observable, of } from 'rxjs';
+import { Cats } from './cat.interface';
+import { CatsService } from './cats.service';
 import { CreateCatDto } from './create-cat.dto';
 
 @Controller('cats')
 export class CatsController {
+  constructor(private catsService: CatsService) {}
   @Post()
-  @Header('Cache-Control', 'none')
   create(@Body() createCatDto: CreateCatDto) {
-    return 'This action adds a new cat';
+    this.catsService.create(createCatDto);
   }
   @Get()
-  findAll(@Req() request: Request): string {
-    return 'This action returns all cats';
+  findAll(@Req() request: Request): Cats {
+    return this.catsService.findAll();
   }
   @Get(':id')
   findOne(@Param() params): string {
