@@ -7,9 +7,11 @@ import {
   Post,
   Put,
   Req,
+  UsePipes,
 } from '@nestjs/common';
 import { Request } from 'express';
 import { Observable, of } from 'rxjs';
+import { CatValidationPipe } from './cat-validation.pipe';
 import { Cats } from './cat.interface';
 import { CatsService } from './cats.service';
 import { CreateCatDto } from './create-cat.dto';
@@ -18,6 +20,7 @@ import { CreateCatDto } from './create-cat.dto';
 export class CatsController {
   constructor(private catsService: CatsService) {}
   @Post()
+  @UsePipes(new CatValidationPipe())
   create(@Body() createCatDto: CreateCatDto) {
     this.catsService.create(createCatDto);
   }

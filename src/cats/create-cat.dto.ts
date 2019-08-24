@@ -3,3 +3,5 @@ export class CreateCatDto {
   readonly age: number;
   readonly breed: string;
 }
+
+export type CatKeys = keyof CreateCatDto;
