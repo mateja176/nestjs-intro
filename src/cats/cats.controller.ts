@@ -7,13 +7,16 @@ import {
   Post,
   Put,
   Req,
+  UseGuards,
 } from '@nestjs/common';
 import { Request } from 'express';
 import { Observable, of } from 'rxjs';
 import { Cats } from './cat.interface';
+import { CatsGuard } from './cats.guard';
 import { CatsService } from './cats.service';
 import { CreateCatDto } from './create-cat.dto';
 
+@UseGuards(CatsGuard)
 @Controller('cats')
 export class CatsController {
   constructor(private catsService: CatsService) {}
