@@ -11,6 +11,7 @@ import {
 } from '@nestjs/common';
 import { Request } from 'express';
 import { Observable, of } from 'rxjs';
+import { role } from '../models';
 import { Roles } from '../roles.decorator';
 import { RolesGuard } from '../roles.guard';
 import { Cats } from './cat.interface';
@@ -22,7 +23,7 @@ import { CreateCatDto } from './create-cat.dto';
 export class CatsController {
   constructor(private catsService: CatsService) {}
   @Post()
-  @Roles('admin')
+  @Roles(role.admin)
   create(@Body() createCatDto: CreateCatDto) {
     this.catsService.create(createCatDto);
   }
