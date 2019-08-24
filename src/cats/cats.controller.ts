@@ -38,11 +38,11 @@ export class CatsController {
     return 'This route uses a wildcard';
   }
   @Get()
-  async findPromise(): Promise<any[]> {
+  async findPromise(): Promise<Cats> {
     return [];
   }
   @Get()
-  findObservable(): Observable<any[]> {
+  findObservable(): Observable<Cats> {
     return of([]);
   }
   @Put(':id')
