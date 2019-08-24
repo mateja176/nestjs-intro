@@ -7,21 +7,20 @@ import {
   Post,
   Put,
   Req,
-  UsePipes,
 } from '@nestjs/common';
 import { Request } from 'express';
 import { Observable, of } from 'rxjs';
-import { CatValidationPipe } from './cat-validation.pipe';
 import { Cats } from './cat.interface';
 import { CatsService } from './cats.service';
+import { ClassValidationPipe } from './class-validation.pipe';
 import { CreateCatDto } from './create-cat.dto';
 
 @Controller('cats')
 export class CatsController {
   constructor(private catsService: CatsService) {}
   @Post()
-  @UsePipes(new CatValidationPipe())
-  create(@Body() createCatDto: CreateCatDto) {
+  // @UsePipes(new CatValidationPipe())
+  create(@Body(new ClassValidationPipe()) createCatDto: CreateCatDto) {
     this.catsService.create(createCatDto);
   }
   @Get()
@@ -30,7 +29,7 @@ export class CatsController {
   }
   @Get(':id')
   findOne(@Param() params): string {
-    console.log(params.id);
+    console.log(params.id); // tslint:disable-line
     return `This action returns a #${params.id} cat`;
   }
   @Get('ab*cd')
