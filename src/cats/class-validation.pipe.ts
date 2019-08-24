@@ -10,6 +10,7 @@ import { validate } from 'class-validator';
 @Injectable()
 export class ClassValidationPipe implements PipeTransform<unknown> {
   private isNativeConstructor(metatype: ArgumentMetadata['metatype']): boolean {
+    console.log('META TYPE', metatype); // tslint:disable-line
     const types: Array<ArgumentMetadata['metatype']> = [
       String,
       Boolean,
