@@ -33,7 +33,7 @@
     "rxjs": "^6.3.3"
   },
   "devDependencies": {
-    "@nestjs/testing": "^6.0.0",
+    "@nestjs/testing": "^6.5.3",
     "@types/compression": "^1.0.1",
     "@types/cors": "^2.8.6",
     "@types/express": "4.16.1",
