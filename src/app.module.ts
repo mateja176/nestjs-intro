@@ -4,6 +4,7 @@ import {
   NestModule,
   RequestMethod,
 } from '@nestjs/common';
+import * as cors from 'cors';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { CatsModule } from './cats/cats.module';
@@ -17,7 +18,7 @@ import { LoggerService } from './logger/logger.service';
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
     consumer
-      .apply(LoggerService)
+      .apply(cors(), LoggerService)
       .forRoutes({ path: 'cats', method: RequestMethod.ALL });
   }
 }
