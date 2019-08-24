@@ -6,11 +6,9 @@ import {
   Param,
   Post,
   Put,
-  Req,
   UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
-import { Request } from 'express';
 import { Observable, of } from 'rxjs';
 import { LoggingInterceptor } from '../logging.interceptor';
 import { role } from '../models';
@@ -32,7 +30,7 @@ export class CatsController {
     this.catsService.create(createCatDto);
   }
   @Get()
-  findAll(@Req() request: Request): Cats {
+  findAll(): Cats {
     return this.catsService.findAll();
   }
   @Get(':id')
