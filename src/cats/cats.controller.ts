@@ -8,9 +8,11 @@ import {
   Put,
   Req,
   UseGuards,
+  UseInterceptors,
 } from '@nestjs/common';
 import { Request } from 'express';
 import { Observable, of } from 'rxjs';
+import { LoggingInterceptor } from '../logging.interceptor';
 import { role } from '../models';
 import { Roles } from '../roles.decorator';
 import { RolesGuard } from '../roles.guard';
@@ -19,6 +21,7 @@ import { CatsService } from './cats.service';
 import { CreateCatDto } from './create-cat.dto';
 
 @UseGuards(RolesGuard)
+@UseInterceptors(LoggingInterceptor)
 @Controller('cats')
 export class CatsController {
   constructor(private catsService: CatsService) {}
