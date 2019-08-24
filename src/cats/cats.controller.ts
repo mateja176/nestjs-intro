@@ -12,7 +12,6 @@ import { Request } from 'express';
 import { Observable, of } from 'rxjs';
 import { Cats } from './cat.interface';
 import { CatsService } from './cats.service';
-import { ClassValidationPipe } from './class-validation.pipe';
 import { CreateCatDto } from './create-cat.dto';
 
 @Controller('cats')
@@ -20,7 +19,7 @@ export class CatsController {
   constructor(private catsService: CatsService) {}
   @Post()
   // @UsePipes(new CatValidationPipe())
-  create(@Body(new ClassValidationPipe()) createCatDto: CreateCatDto) {
+  create(@Body() createCatDto: CreateCatDto) {
     this.catsService.create(createCatDto);
   }
   @Get()
