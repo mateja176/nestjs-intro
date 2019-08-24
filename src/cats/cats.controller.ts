@@ -11,13 +11,13 @@ import {
 } from '@nestjs/common';
 import { Request } from 'express';
 import { Observable, of } from 'rxjs';
-import { Roles } from 'src/roles.decorator';
+import { Roles } from '../roles.decorator';
+import { RolesGuard } from '../roles.guard';
 import { Cats } from './cat.interface';
-import { CatsGuard } from './cats.guard';
 import { CatsService } from './cats.service';
 import { CreateCatDto } from './create-cat.dto';
 
-@UseGuards(CatsGuard)
+@UseGuards(RolesGuard)
 @Controller('cats')
 export class CatsController {
   constructor(private catsService: CatsService) {}
