@@ -16,12 +16,13 @@ import { LoggingInterceptor } from '../logging.interceptor';
 import { role } from '../models';
 import { Roles } from '../roles.decorator';
 import { RolesGuard } from '../roles.guard';
+import { TimeoutInterceptor } from '../timeout.interceptor';
 import { Cats } from './cat.interface';
 import { CatsService } from './cats.service';
 import { CreateCatDto } from './create-cat.dto';
 
 @UseGuards(RolesGuard)
-@UseInterceptors(LoggingInterceptor)
+@UseInterceptors(LoggingInterceptor, TimeoutInterceptor)
 @Controller('cats')
 export class CatsController {
   constructor(private catsService: CatsService) {}
