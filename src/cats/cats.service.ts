@@ -1,24 +1,20 @@
 import { Injectable } from '@nestjs/common';
-import * as faker from 'faker';
-import { range } from 'lodash';
-import { Cat, Cats } from './cat.interface';
+import { InjectModel } from '@nestjs/mongoose';
+import { Model } from 'mongoose';
+import { CatModel } from '../schemas/cat.schema';
+import { Cat } from './cat.interface';
+import { CreateCatDto } from './create-cat.dto';
 
 @Injectable()
 export class CatsService {
-  private readonly cats: Cats = range(
-    0,
-    faker.random.number({ min: 1, max: 10 }),
-  ).map(() => ({
-    name: faker.name.firstName(),
-    age: faker.random.number({ min: 1, max: 10 }),
-    breed: faker.lorem.word(),
-  }));
+  constructor(@InjectModel('Cat') private readonly catModel: Model<CatModel>) {}
 
-  create(cat: Cat) {
-    this.cats.push(cat);
+  async create(createCatDto: CreateCatDto): Promise<Cat> {
+    const createdCat = new this.catModel(createCatDto);
+    return await createdCat.save();
   }
 
-  findAll() {
-    return this.cats;
+  async findAll(): Promise<Cat[]> {
+    return await this.catModel.find().exec();
   }
 }

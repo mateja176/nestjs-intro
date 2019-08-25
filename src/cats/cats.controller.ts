@@ -30,7 +30,7 @@ export class CatsController {
     this.catsService.create(createCatDto);
   }
   @Get()
-  findAll(): Cats {
+  findAll() {
     return this.catsService.findAll();
   }
   @Get(':id')
