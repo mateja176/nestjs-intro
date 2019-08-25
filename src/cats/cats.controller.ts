@@ -10,11 +10,11 @@ import {
   UseInterceptors,
 } from '@nestjs/common';
 import { Observable, of } from 'rxjs';
-import { LoggingInterceptor } from '../logging.interceptor';
+import { LoggingInterceptor } from '../logging/logging.interceptor';
 import { role } from '../models';
-import { Roles } from '../roles.decorator';
-import { RolesGuard } from '../roles.guard';
-import { TimeoutInterceptor } from '../timeout.interceptor';
+import { Roles } from '../roles/roles.decorator';
+import { RolesGuard } from '../roles/roles.guard';
+import { TimeoutInterceptor } from '../timeout/timeout.interceptor';
 import { Cats } from './cat.interface';
 import { CatsService } from './cats.service';
 import { CreateCatDto } from './create-cat.dto';
