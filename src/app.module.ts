@@ -12,6 +12,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { AuthModule } from './auth/auth.module';
 import { CatsModule } from './cats/cats.module';
+import { typeOrmConfig } from './config';
 import { LoggerService } from './logger/logger.service';
 import { passportStrategy } from './models';
 import { PhotoModule } from './photo/photo.module';
@@ -25,16 +26,7 @@ import { UsersModule } from './users/users.module';
     PassportModule.register({
       defaultStrategy: passportStrategy.jwt,
     }),
-    TypeOrmModule.forRoot({
-      type: 'mysql',
-      host: 'localhost',
-      port: 3306,
-      username: 'root',
-      password: 'nestJS$1',
-      database: 'test',
-      entities: [__dirname + '/**/*.entity{.ts,.js}'],
-      synchronize: true,
-    }),
+    TypeOrmModule.forRoot(typeOrmConfig),
     PhotoModule,
   ],
   controllers: [AppController],
