@@ -22,6 +22,6 @@ export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
     consumer
       .apply(cors(), compression(), LoggerService)
-      .forRoutes({ path: 'cats', method: RequestMethod.ALL });
+      .forRoutes({ path: '*', method: RequestMethod.ALL });
   }
 }
