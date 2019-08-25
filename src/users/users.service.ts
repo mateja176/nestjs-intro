@@ -1,4 +1,5 @@
 import { Injectable } from '@nestjs/common';
+import * as bcrypt from 'bcrypt';
 import * as faker from 'faker';
 import { range } from 'lodash';
 import { User, Users } from './user.interface';
@@ -18,6 +19,17 @@ export class UsersService {
     });
 
   async findOne(username: string): Promise<User | undefined> {
-    return this.users.find(user => user.username === username);
+    const encryptedPasswordUsers = Promise.all(
+      this.users.map(({ password, ...user }) =>
+        bcrypt.hash(password, 10).then(encryptedPassword => ({
+          ...user,
+          password: encryptedPassword,
+        })),
+      ),
+    );
+
+    const users = await encryptedPasswordUsers;
+
+    return users.find(user => user.username === username);
   }
 }
