@@ -11,8 +11,7 @@ import {
 } from '@nestjs/common';
 import { Observable, of } from 'rxjs';
 import { LoggingInterceptor } from '../logging/logging.interceptor';
-import { Path, role } from '../models';
-import { Roles } from '../roles/roles.decorator';
+import { Path } from '../models';
 import { RolesGuard } from '../roles/roles.guard';
 import { TimeoutInterceptor } from '../timeout/timeout.interceptor';
 import { Cats } from './cat.interface';
@@ -25,7 +24,7 @@ import { CreateCatDto } from './create-cat.dto';
 export class CatsController {
   constructor(private catsService: CatsService) {}
   @Post()
-  @Roles(role.admin)
+  // @Roles(role.admin)
   create(@Body() createCatDto: CreateCatDto) {
     this.catsService.create(createCatDto);
   }

@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { CatModel } from '../schemas/cat.schema';
-import { Cat } from './cat.interface';
+import { Cat, Cats } from './cat.interface';
 import { CreateCatDto } from './create-cat.dto';
 
 @Injectable()
@@ -14,7 +14,8 @@ export class CatsService {
     return await createdCat.save();
   }
 
-  async findAll(): Promise<Cat[]> {
-    return await this.catModel.find().exec();
+  async findAll(): Promise<Cats> {
+    const cats = await this.catModel.find().exec();
+    return cats;
   }
 }
