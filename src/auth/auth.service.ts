@@ -32,7 +32,7 @@ export class AuthService {
     }
   }
 
-  async login(user: User) {
+  async login(user: SerializedUser) {
     const payload = {
       username: user.username,
       sub: user.id,
