@@ -14,6 +14,7 @@ import { AuthModule } from './auth/auth.module';
 import { CatsModule } from './cats/cats.module';
 import { LoggerService } from './logger/logger.service';
 import { passportStrategy } from './models';
+import { PhotoModule } from './photo/photo.module';
 import { UsersModule } from './users/users.module';
 
 @Module({
@@ -29,11 +30,12 @@ import { UsersModule } from './users/users.module';
       host: 'localhost',
       port: 3306,
       username: 'root',
-      password: 'root',
+      password: 'nestJS$1',
       database: 'test',
       entities: [__dirname + '/**/*.entity{.ts,.js}'],
       synchronize: true,
     }),
+    PhotoModule,
   ],
   controllers: [AppController],
   providers: [AppService, LoggerService],
