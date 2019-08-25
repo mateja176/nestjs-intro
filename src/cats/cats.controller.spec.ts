@@ -1,3 +1,4 @@
+import { Test } from '@nestjs/testing';
 import { Cats } from './cat.interface';
 import { CatsController } from './cats.controller';
 import { CatsService } from './cats.service';
@@ -6,9 +7,14 @@ describe('CatsController', () => {
   let catsController: CatsController;
   let catsService: CatsService;
 
-  beforeEach(() => {
-    catsService = new CatsService();
-    catsController = new CatsController(catsService);
+  beforeEach(async () => {
+    const module = await Test.createTestingModule({
+      controllers: [CatsController],
+      providers: [CatsService],
+    }).compile();
+
+    catsService = module.get<CatsService>(CatsService);
+    catsController = module.get<CatsController>(CatsController);
   });
 
   describe('findAll', () => {
