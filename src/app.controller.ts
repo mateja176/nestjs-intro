@@ -3,7 +3,7 @@ import { AuthGuard } from '@nestjs/passport';
 import { Request as IRequest } from 'express';
 import { AppService } from './app.service';
 
-@Controller('api')
+@Controller()
 export class AppController {
   constructor(private readonly appService: AppService) {}
 
