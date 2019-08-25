@@ -5,6 +5,7 @@ import {
   RequestMethod,
 } from '@nestjs/common';
 import { PassportModule } from '@nestjs/passport';
+import { TypeOrmModule } from '@nestjs/typeorm';
 import * as compression from 'compression';
 import * as cors from 'cors';
 import { AppController } from './app.controller';
@@ -22,6 +23,16 @@ import { UsersModule } from './users/users.module';
     UsersModule,
     PassportModule.register({
       defaultStrategy: passportStrategy.jwt,
+    }),
+    TypeOrmModule.forRoot({
+      type: 'mysql',
+      host: 'localhost',
+      port: 3306,
+      username: 'root',
+      password: 'root',
+      database: 'test',
+      entities: [__dirname + '/**/*.entity{.ts,.js}'],
+      synchronize: true,
     }),
   ],
   controllers: [AppController],
