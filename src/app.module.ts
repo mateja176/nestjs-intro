@@ -8,11 +8,13 @@ import * as compression from 'compression';
 import * as cors from 'cors';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { AuthModule } from './auth/auth.module';
 import { CatsModule } from './cats/cats.module';
 import { LoggerService } from './logger/logger.service';
+import { UserModule } from './user/user.module';
 
 @Module({
-  imports: [CatsModule],
+  imports: [CatsModule, AuthModule, UserModule],
   controllers: [AppController],
   providers: [AppService, LoggerService],
 })
