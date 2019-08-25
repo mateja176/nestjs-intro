@@ -1,3 +1,10 @@
+export const passportStrategies = ['local', 'jwt'] as const;
+export type PassportStrategy = typeof passportStrategies[number];
+export const passportStrategy = passportStrategies.reduce(
+  (strategies, strategy) => ({ ...strategies, [strategy]: strategy }),
+  {} as { [key in PassportStrategy]: key },
+);
+
 export const roles = ['admin'] as const;
 export type Role = typeof roles[number];
 export type Roles = Role[];
