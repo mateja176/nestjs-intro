@@ -11,7 +11,7 @@ import {
 } from '@nestjs/common';
 import { Observable, of } from 'rxjs';
 import { LoggingInterceptor } from '../logging/logging.interceptor';
-import { role } from '../models';
+import { Path, role } from '../models';
 import { Roles } from '../roles/roles.decorator';
 import { RolesGuard } from '../roles/roles.guard';
 import { TimeoutInterceptor } from '../timeout/timeout.interceptor';
@@ -21,7 +21,7 @@ import { CreateCatDto } from './create-cat.dto';
 
 @UseGuards(RolesGuard)
 @UseInterceptors(LoggingInterceptor, TimeoutInterceptor)
-@Controller('cats')
+@Controller(Path.cats)
 export class CatsController {
   constructor(private catsService: CatsService) {}
   @Post()

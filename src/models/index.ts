@@ -1,5 +1,11 @@
 import { toObject } from '../utils';
 
+export enum Path {
+  login = 'login',
+  me = 'me',
+  cats = 'cats',
+}
+
 export const passportStrategies = ['local', 'jwt'] as const;
 export type PassportStrategy = typeof passportStrategies[number];
 export const passportStrategy = toObject(passportStrategies);

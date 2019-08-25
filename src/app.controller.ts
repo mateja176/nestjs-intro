@@ -3,7 +3,7 @@ import { AuthGuard } from '@nestjs/passport';
 import { Request as IRequest } from 'express';
 import { AppService } from './app.service';
 import { AuthService } from './auth/auth.service';
-import { passportStrategy } from './models';
+import { passportStrategy, Path } from './models';
 import { User } from './users/user.interface';
 
 @Controller()
@@ -19,13 +19,13 @@ export class AppController {
   }
 
   @UseGuards(AuthGuard(passportStrategy.local))
-  @Post('login')
+  @Post(Path.login)
   async login(@Request() req: IRequest) {
     return this.authService.login(req.user as User);
   }
 
   @UseGuards(AuthGuard())
-  @Get('me')
+  @Get(Path.me)
   getProfile(@Request() req: IRequest) {
     return req.user;
   }
