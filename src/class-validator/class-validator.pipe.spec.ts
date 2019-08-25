@@ -1,4 +1,4 @@
-import { ClassValidationPipe } from './class-validation.pipe';
+import { ClassValidationPipe } from './class-validator.pipe';
 
 describe('ClassValidationPipe', () => {
   it('should be defined', () => {
