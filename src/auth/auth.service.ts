@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import * as bcrypt from 'bcrypt';
-import { UsersService } from 'src/users/users.service';
 import { SerializedUser, User } from '../users/user.interface';
+import { UsersService } from '../users/users.service';
 
 @Injectable()
 export class AuthService {
