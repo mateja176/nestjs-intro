@@ -4,7 +4,7 @@ import { range } from 'lodash';
 import { User, Users } from './user.interface';
 
 @Injectable()
-export class UserService {
+export class UsersService {
   private readonly users: Users = range(0, 10)
     .map(() => ({
       id: faker.random.number(),

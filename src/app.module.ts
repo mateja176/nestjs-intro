@@ -11,10 +11,10 @@ import { AppService } from './app.service';
 import { AuthModule } from './auth/auth.module';
 import { CatsModule } from './cats/cats.module';
 import { LoggerService } from './logger/logger.service';
-import { UserModule } from './user/user.module';
+import { UsersModule } from './users/users.module';
 
 @Module({
-  imports: [CatsModule, AuthModule, UserModule],
+  imports: [CatsModule, AuthModule, UsersModule],
   controllers: [AppController],
   providers: [AppService, LoggerService],
 })
