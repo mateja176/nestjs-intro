@@ -1,5 +1,14 @@
-import { Controller, Get, Post, Request, UseGuards } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Request,
+  UploadedFile,
+  UseGuards,
+  UseInterceptors,
+} from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
+import { FileInterceptor } from '@nestjs/platform-express';
 import { Request as IRequest } from 'express';
 import { AppService } from './app.service';
 import { AuthService } from './auth/auth.service';
@@ -12,6 +21,12 @@ export class AppController {
     private readonly appService: AppService,
     private readonly authService: AuthService,
   ) {}
+
+  @Post('upload')
+  @UseInterceptors(FileInterceptor('file'))
+  uploadFile(@UploadedFile() file) {
+    console.log(file);
+  }
 
   @Get()
   getHello(): string {
