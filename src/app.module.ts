@@ -1,9 +1,12 @@
 import {
+  CacheInterceptor,
+  CacheModule,
   MiddlewareConsumer,
   Module,
   NestModule,
   RequestMethod,
 } from '@nestjs/common';
+import { APP_INTERCEPTOR } from '@nestjs/core';
 import { MongooseModule } from '@nestjs/mongoose';
 import { PassportModule } from '@nestjs/passport';
 import * as compression from 'compression';
@@ -27,9 +30,17 @@ import { UsersModule } from './users/users.module';
     // TypeOrmModule.forRoot(typeOrmConfig),
     // PhotoModule,
     MongooseModule.forRoot('mongodb://localhost:27017/nest'),
+    CacheModule.register(),
   ],
   controllers: [AppController],
-  providers: [AppService, LoggerService],
+  providers: [
+    AppService,
+    LoggerService,
+    {
+      provide: APP_INTERCEPTOR,
+      useClass: CacheInterceptor,
+    },
+  ],
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
