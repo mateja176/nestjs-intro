@@ -12,7 +12,7 @@ export class CatsService {
     private readonly catModel: Model<Cat & mongoose.Document>,
   ) {}
 
-  async create(createCatDto: CreateCatDto) {
+  async create(createCatDto: CreateCatDto): Promise<Cat> {
     const createdCat = new this.catModel(createCatDto);
     return await createdCat.save();
   }

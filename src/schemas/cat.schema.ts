@@ -8,3 +8,5 @@ const schema = fromPairs(
 );
 
 export const CatSchema = new mongoose.Schema(schema);
+
+export const catModel = mongoose.model('Cat', CatSchema);
