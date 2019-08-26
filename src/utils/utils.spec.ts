@@ -1,12 +1,9 @@
 import { fromPairs, toPairs } from 'lodash';
 import { toNativeConstructor } from '.';
-import { CatsService } from '../cats/cats.service';
+import { mockCat } from '../cats/mockCat';
 
 const catSchema = fromPairs(
-  toPairs(new CatsService().findAll()[0]).map(([key, value]) => [
-    key,
-    toNativeConstructor(value),
-  ]),
+  toPairs(mockCat()).map(([key, value]) => [key, toNativeConstructor(value)]),
 );
 
 describe('Utils', () => {
