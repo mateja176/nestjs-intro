@@ -10,7 +10,9 @@ import { APP_INTERCEPTOR } from '@nestjs/core';
 import { MongooseModule } from '@nestjs/mongoose';
 import { PassportModule } from '@nestjs/passport';
 import * as compression from 'compression';
-import * as cors from 'cors';
+import * as csurf from 'csurf';
+import * as RateLimit from 'express-rate-limit';
+import * as helmet from 'helmet';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { AuthModule } from './auth/auth.module';
@@ -45,7 +47,16 @@ import { UsersModule } from './users/users.module';
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
     consumer
-      .apply(cors(), compression(), LoggerService)
+      .apply(
+        helmet(),
+        csurf(),
+        new RateLimit({
+          windowMs: 15 * 60 * 1000, // 15 minutes
+          max: 1000, // limit each IP to 1000 requests per windowMs
+        }),
+        compression(),
+        LoggerService,
+      )
       .forRoutes({ path: '*', method: RequestMethod.ALL });
   }
 }
