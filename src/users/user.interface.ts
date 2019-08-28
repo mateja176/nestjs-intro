@@ -9,6 +9,10 @@ export class SerializedUser {
 export class User extends SerializedUser {
   @Exclude()
   password: string;
+  constructor(user: User) {
+    super();
+    Object.assign(this, user);
+  }
 }
 
 export type Users = User[];

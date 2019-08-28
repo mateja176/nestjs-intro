@@ -11,10 +11,10 @@ export class UsersController {
   @UseInterceptors(ClassSerializerInterceptor)
   @Get()
   findOne(): User {
-    return {
+    return new User({
       id: 1,
       username: 'john',
       password: 'password',
-    };
+    });
   }
 }
