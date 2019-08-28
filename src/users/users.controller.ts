@@ -4,17 +4,19 @@ import {
   Get,
   UseInterceptors,
 } from '@nestjs/common';
-import { User } from './user.interface';
+import { UserEntity } from './user.interface';
 
 @Controller('users')
 export class UsersController {
   @UseInterceptors(ClassSerializerInterceptor)
   @Get()
-  findOne(): User {
-    return new User({
+  findOne(): UserEntity {
+    return new UserEntity({
       id: 1,
       username: 'john',
       password: 'password',
+      first: 'John',
+      last: 'Doe',
     });
   }
 }

@@ -1,4 +1,4 @@
-import { Exclude } from 'class-transformer';
+import { Exclude, Expose } from 'class-transformer';
 
 /* tslint:disable max-classes-per-file */
 export class SerializedUser {
@@ -6,12 +6,26 @@ export class SerializedUser {
   username: string;
 }
 
-export class User extends SerializedUser {
+interface WithPassword {
+  password: string;
+}
+
+export class User extends SerializedUser implements WithPassword {
+  password: string;
+}
+
+export class UserEntity extends SerializedUser implements WithPassword {
+  first: string;
+  last: string;
   @Exclude()
   password: string;
-  constructor(user: User) {
+  constructor(user: Partial<UserEntity>) {
     super();
     Object.assign(this, user);
+  }
+  @Expose()
+  fullName() {
+    return `${this.first} ${this.last}`;
   }
 }
 
