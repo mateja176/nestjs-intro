@@ -4,6 +4,7 @@ import {
   Get,
   UseInterceptors,
 } from '@nestjs/common';
+import { role } from '../models';
 import { UserEntity } from './user.interface';
 
 @Controller('users')
@@ -17,6 +18,9 @@ export class UsersController {
       password: 'password',
       first: 'John',
       last: 'Doe',
+      role: {
+        value: role.admin,
+      },
     });
   }
 }
