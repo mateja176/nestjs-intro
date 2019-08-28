@@ -17,6 +17,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { AuthModule } from './auth/auth.module';
 import { CatsModule } from './cats/cats.module';
+import { ConfigModule } from './config/config.module';
 import { LoggerService } from './logger/logger.service';
 import { passportStrategy } from './models';
 import { UsersModule } from './users/users.module';
@@ -33,6 +34,7 @@ import { UsersModule } from './users/users.module';
     // PhotoModule,
     MongooseModule.forRoot('mongodb://localhost:27017/nest'),
     CacheModule.register(),
+    ConfigModule,
   ],
   controllers: [AppController],
   providers: [
