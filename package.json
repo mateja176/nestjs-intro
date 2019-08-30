@@ -61,6 +61,7 @@
     "typeorm": "^0.2.18"
   },
   "devDependencies": {
+    "@compodoc/compodoc": "^1.1.10",
     "@nestjs/testing": "^6.5.3",
     "@types/bcrypt": "^3.0.0",
     "@types/compression": "^1.0.1",
