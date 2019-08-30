@@ -8,6 +8,6 @@ export class AppService {
     this.isAuthEnabled = config.get('API_AUTH_ENABLED');
   }
   getHello(): string {
-    return 'Hello World!';
+    return this.isAuthEnabled ? 'Hello' : 'Hello World!';
   }
 }
