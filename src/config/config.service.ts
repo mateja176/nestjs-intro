@@ -48,7 +48,9 @@ export class ConfigService {
     }
   }
 
-  get(key: string): string {
+  get = <Key extends keyof ValidatedEnvConfig>(
+    key: Key,
+  ): ValidatedEnvConfig[Key] => {
     return this.envConfig[key];
   }
 }

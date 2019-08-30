@@ -5,8 +5,7 @@ import { ConfigService } from './config/config.service';
 export class AppService {
   private isAuthEnabled: boolean;
   constructor(config: ConfigService) {
-    // Please take note that this check is case sensitive!
-    this.isAuthEnabled = config.get('IS_AUTH_ENABLED') === 'true';
+    this.isAuthEnabled = config.get('API_AUTH_ENABLED');
   }
   getHello(): string {
     return 'Hello World!';
