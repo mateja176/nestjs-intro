@@ -10,6 +10,7 @@ import { APP_INTERCEPTOR } from '@nestjs/core';
 import { MongooseModule } from '@nestjs/mongoose';
 import { PassportModule } from '@nestjs/passport';
 import { ServeStaticModule } from '@nestjs/serve-static';
+import { TerminusModule } from '@nestjs/terminus';
 import * as compression from 'compression';
 import * as cookieParser from 'cookie-parser';
 import * as csurf from 'csurf';
@@ -21,6 +22,7 @@ import { AppService } from './app.service';
 import { AuthModule } from './auth/auth.module';
 import { CatsModule } from './cats/cats.module';
 import { ConfigModule } from './config/config.module';
+import { TerminusOptionsService } from './health-checks/terminus-options.service';
 import { LoggerService } from './logger/logger.service';
 import { passportStrategy } from './models';
 import { UsersModule } from './users/users.module';
@@ -40,6 +42,9 @@ import { UsersModule } from './users/users.module';
     ConfigModule,
     ServeStaticModule.forRoot({
       rootPath: join(__dirname, '..', 'client'),
+    }),
+    TerminusModule.forRootAsync({
+      useClass: TerminusOptionsService,
     }),
   ],
   controllers: [AppController],
