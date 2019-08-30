@@ -10,6 +10,7 @@ import { APP_INTERCEPTOR } from '@nestjs/core';
 import { MongooseModule } from '@nestjs/mongoose';
 import { PassportModule } from '@nestjs/passport';
 import * as compression from 'compression';
+import * as cookieParser from 'cookie-parser';
 import * as csurf from 'csurf';
 import * as RateLimit from 'express-rate-limit';
 import * as helmet from 'helmet';
@@ -51,7 +52,8 @@ export class AppModule implements NestModule {
     consumer
       .apply(
         helmet(),
-        csurf(),
+        cookieParser(),
+        csurf({ cookie: true }),
         new RateLimit({
           windowMs: 15 * 60 * 1000, // 15 minutes
           max: 1000, // limit each IP to 1000 requests per windowMs
