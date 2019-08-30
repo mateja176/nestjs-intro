@@ -22,6 +22,7 @@ import { AppService } from './app.service';
 import { AuthModule } from './auth/auth.module';
 import { CatsModule } from './cats/cats.module';
 import { ConfigModule } from './config/config.module';
+import { DogModule } from './dog/dog.module';
 import { TerminusOptionsService } from './health-checks/terminus-options.service';
 import { LoggerService } from './logger/logger.service';
 import { passportStrategy } from './models';
@@ -45,7 +46,9 @@ import { UsersModule } from './users/users.module';
     }),
     TerminusModule.forRootAsync({
       useClass: TerminusOptionsService,
+      imports: [DogModule],
     }),
+    DogModule,
   ],
   controllers: [AppController],
   providers: [

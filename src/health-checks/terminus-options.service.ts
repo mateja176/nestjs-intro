@@ -1,21 +1,19 @@
 import { Injectable } from '@nestjs/common';
 import {
-  DNSHealthIndicator,
   TerminusEndpoint,
   TerminusModuleOptions,
   TerminusOptionsFactory,
 } from '@nestjs/terminus';
+import { DogHealthIndicator } from '../dog/dog.health.service';
 
 @Injectable()
 export class TerminusOptionsService implements TerminusOptionsFactory {
-  constructor(private readonly dns: DNSHealthIndicator) {}
+  constructor(private readonly dogHealthIndicator: DogHealthIndicator) {}
 
   createTerminusOptions(): TerminusModuleOptions {
     const healthEndpoint: TerminusEndpoint = {
       url: '/health',
-      healthIndicators: [
-        async () => this.dns.pingCheck('google', 'https://google.com'),
-      ],
+      healthIndicators: [async () => this.dogHealthIndicator.isHealthy('dog')],
     };
     return {
       endpoints: [healthEndpoint],
