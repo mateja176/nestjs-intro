@@ -9,7 +9,7 @@ import {
   Resolver,
 } from '@nestjs/graphql';
 import { Max, Min } from 'class-validator';
-import { ArgsType, Field, Int } from 'type-graphql';
+import { ArgsType, Field, InputType, Int } from 'type-graphql';
 import { maxAuthors, minAuthors } from '../common';
 import { Post } from '../posts/post.model';
 import { PostsService } from '../posts/posts.service';
@@ -28,6 +28,12 @@ class AuthorArgs {
 
 @ArgsType()
 class UpvotePostArgs {
+  @Field(type => Int)
+  id: number;
+}
+
+@InputType()
+export class UpvotePostInput {
   @Field(type => Int)
   id: number;
 }
@@ -52,7 +58,7 @@ export class AuthorResolver {
   }
 
   @Mutation(returns => Post)
-  async upvotePost(@Args() { id }: UpvotePostArgs) {
+  async upvotePost(@Args('upvotePostInput') { id }: UpvotePostInput) {
     return await this.postsService.upvoteById(id);
   }
 }

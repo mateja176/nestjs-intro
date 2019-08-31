@@ -11,7 +11,7 @@ type Author {
 }
 
 type Mutation {
-  upvotePost(id: Int!): Post!
+  upvotePost(upvotePostInput: UpvotePostInput!): Post!
 }
 
 type Post {
@@ -22,4 +22,8 @@ type Post {
 
 type Query {
   author(id: Int!): Author!
+}
+
+input UpvotePostInput {
+  id: Int!
 }

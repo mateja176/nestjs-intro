@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import * as faker from 'faker';
 import { range } from 'ramda';
 import { Author } from '../authors/author.model';
@@ -22,10 +22,14 @@ export class PostsService {
     return this.allPosts[authorId];
   }
 
-  async upvoteById(postId: Post['id']): Promise<Post> {
-    const post = Object.values(this.allPosts)
+  async upvoteById(postId: Post['id']): never | Promise<Post> {
+    const post: Post | undefined = Object.values(this.allPosts)
       .flat()
       .find(({ id }) => id === postId);
+
+    if (!post) {
+      throw new BadRequestException(`Post with id ${postId} not found`);
+    }
 
     post.votes += 1;
 
