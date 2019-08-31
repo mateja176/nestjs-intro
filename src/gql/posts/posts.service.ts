@@ -21,4 +21,14 @@ export class PostsService {
   async findAll(authorId: Author['id']): Promise<Post[]> {
     return this.allPosts[authorId];
   }
+
+  async upvoteById(postId: Post['id']): Promise<Post> {
+    const post = Object.values(this.allPosts)
+      .flat()
+      .find(({ id }) => id === postId);
+
+    post.votes += 1;
+
+    return post;
+  }
 }

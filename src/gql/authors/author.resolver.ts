@@ -2,6 +2,7 @@
 
 import {
   Args,
+  Mutation,
   Parent,
   Query,
   ResolveProperty,
@@ -9,6 +10,7 @@ import {
 } from '@nestjs/graphql';
 import { Max, Min } from 'class-validator';
 import { ArgsType, Field, Int } from 'type-graphql';
+import { maxAuthors, minAuthors } from '../common';
 import { Post } from '../posts/post.model';
 import { PostsService } from '../posts/posts.service';
 import { Author } from './author.model';
@@ -19,8 +21,14 @@ class AuthorArgs {
   // todo extract into custom scalar with description
   // * to convey the rule explicitly based on the schema
   @Field(type => Int)
-  @Min(1)
-  @Max(10)
+  @Min(minAuthors)
+  @Max(maxAuthors)
+  id: number;
+}
+
+@ArgsType()
+class UpvotePostArgs {
+  @Field(type => Int)
   id: number;
 }
 
@@ -32,13 +40,19 @@ export class AuthorResolver {
   ) {}
 
   @Query(returns => Author, { name: 'author' })
+  // * the query argument order is arbitrary since every argument is named
   async getAuthor(@Args() { id }: AuthorArgs) {
     return await this.authorsService.findOneById(id);
   }
 
   @ResolveProperty('posts', () => [Post])
-  async getPosts(@Parent() author: Author): Promise<Post[]> {
+  async getPosts(@Parent() author: Author) {
     const { id } = author;
     return await this.postsService.findAll(id);
+  }
+
+  @Mutation(returns => Post)
+  async upvotePost(@Args() { id }: UpvotePostArgs) {
+    return await this.postsService.upvoteById(id);
   }
 }
