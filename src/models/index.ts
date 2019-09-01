@@ -1,5 +1,9 @@
 import { toObject } from '../utils';
 
+export enum CustomProvider {
+  pubSub = 'PUB_SUB',
+}
+
 export enum Path {
   login = 'login',
   me = 'me',

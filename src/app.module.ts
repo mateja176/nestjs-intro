@@ -48,6 +48,7 @@ import { UsersModule } from './users/users.module';
     }),
     DogModule,
     GraphQLModule.forRoot({
+      installSubscriptionHandlers: true,
       autoSchemaFile: 'src/generated/graphql/schema.gql',
       debug: true,
       playground: true,

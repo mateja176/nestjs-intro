@@ -1,5 +1,6 @@
 /* tslint:disable max-classes-per-file */
 
+import { Inject } from '@nestjs/common';
 import {
   Args,
   Mutation,
@@ -7,9 +8,13 @@ import {
   Query,
   ResolveProperty,
   Resolver,
+  Subscription,
 } from '@nestjs/graphql';
 import { Max, Min } from 'class-validator';
+import { PubSub } from 'graphql-subscriptions';
 import { ArgsType, Field, InputType, Int } from 'type-graphql';
+import { CustomProvider } from '../../models';
+import { Comment } from '../comments/comment.models';
 import { maxAuthors, minAuthors } from '../common';
 import { Post } from '../posts/post.model';
 import { PostsService } from '../posts/posts.service';
@@ -41,6 +46,7 @@ export class UpvotePostInput {
 @Resolver(of => Author)
 export class AuthorResolver {
   constructor(
+    @Inject(CustomProvider.pubSub) public pubSub: PubSub,
     private readonly authorsService: AuthorsService,
     private readonly postsService: PostsService,
   ) {}
@@ -60,5 +66,12 @@ export class AuthorResolver {
   @Mutation(returns => Post)
   async upvotePost(@Args('upvotePostInput') { id }: UpvotePostInput) {
     return await this.postsService.upvoteById(id);
+  }
+
+  @Subscription(returns => Comment, {
+    filter: (payload, variables) => true,
+  })
+  commentAdded() {
+    return this.pubSub.asyncIterator('commentAdded');
   }
 }

@@ -10,6 +10,11 @@ type Author {
   posts: [Post!]!
 }
 
+type Comment {
+  id: Int!
+  content: String!
+}
+
 type Mutation {
   upvotePost(upvotePostInput: UpvotePostInput!): Post!
 }
@@ -22,6 +27,10 @@ type Post {
 
 type Query {
   author(id: Int!): Author!
+}
+
+type Subscription {
+  commentAdded: Comment!
 }
 
 input UpvotePostInput {
