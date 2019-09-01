@@ -54,7 +54,8 @@ export class AuthorResolver {
   @Query(returns => Author, { name: 'author' })
   // * the query argument order is arbitrary since every argument is named
   async getAuthor(@Args() { id }: AuthorArgs) {
-    return await this.authorsService.findOneById(id);
+    const author = await this.authorsService.findOneById(id);
+    return author;
   }
 
   @ResolveProperty('posts', () => [Post])

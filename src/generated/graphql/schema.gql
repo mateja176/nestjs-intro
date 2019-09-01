@@ -15,6 +15,9 @@ type Comment {
   content: String!
 }
 
+"""Date represented in milliseconds"""
+scalar Date
+
 type Mutation {
   upvotePost(upvotePostInput: UpvotePostInput!): Post!
 }
@@ -23,6 +26,7 @@ type Post {
   id: Int!
   title: String!
   votes: Int
+  creationDate: Date!
 }
 
 type Query {

@@ -14,6 +14,7 @@ export class PostsService {
         id: faker.random.number(),
         title: faker.name.title(),
         votes: faker.random.number({ min: 0, max: 100 }),
+        creationDate: new Date(),
       })),
     }),
     {} as Record<Author['id'], Post[]>,

@@ -10,4 +10,6 @@ export class Post {
 
   @Field(type => Int, { nullable: true })
   votes?: number;
+  @Field()
+  creationDate: Date;
 }
