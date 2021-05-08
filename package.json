@@ -64,7 +64,7 @@
     "swagger-ui-express": "^4.0.7",
     "type-graphql": "^0.17.5",
     "typegoose": "^5.9.0",
-    "typeorm": "^0.2.18"
+    "typeorm": "^0.2.25"
   },
   "devDependencies": {
     "@compodoc/compodoc": "^1.1.10",
